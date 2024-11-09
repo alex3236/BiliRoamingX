@@ -103,32 +103,7 @@ object Accounts {
 
     @JvmStatic
     private fun showBRBDialog() {
-        if (!dialogShowing && !dialogDismissed) {
-            dialogShowing = true
-            Utils.runOnMainThread {
-                val topActivity = ApplicationDelegate.getTopActivity()
-                if (topActivity != null) {
-                    val dialog = AlertDialog.Builder(topActivity)
-                        .setTitle("漫游账户已被封禁")
-                        .setMessage("Your account has been officially banned by Roaming. Please close this app and use the original version. \nby TG@bbx_show")
-                        .setNegativeButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
-                            topActivity.finish()
-                        })
-                        .setPositiveButton("封禁原因", DialogInterface.OnClickListener { _, _ ->
-                            dialogDismissed = true
-                            cachePrefs.edit().putBoolean("dialog_dismissed", true).apply()
-                            val uri = Uri.parse("https://t.me/BiliRoamingServerBlacklistLog")
-                            topActivity.startActivity(Intent(Intent.ACTION_VIEW, uri))
-                        })
-                        .create().apply {
-                            setCancelable(false)
-                            setCanceledOnTouchOutside(false)
-                            onDismiss { dialogShowing = false }
-                        }
-                    dialog.show()
-                }
-            }
-        }
+       
     }
 
     @JvmStatic
